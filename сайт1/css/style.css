@@ -1,0 +1,205 @@
+body{
+    font-family: 'Ubuntu', sans-serif;
+}
+.header {
+    width: 100%;
+    max-width: 1212px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    font-weight: 700;
+}
+.wrap {
+    width: 100%;
+    max-width: 1212px;
+    margin: 0 auto;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+.nav {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 14px;
+    align-items: center;
+    margin-top: 26px;
+
+}
+.nav>li {
+    margin-left: 37px;
+}
+.nav>li>a {
+    text-decoration: none;
+    color:#202020;
+}
+.nav_btn {
+    background-color: #5528FF;
+    border-radius: 5px;
+    padding: 4px 13px;
+    color: white;
+    border: none;
+    text-decoration: none;
+    font-weight: 700;
+}
+.nav_btn>a {
+    color: white;
+    text-decoration: none;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.logo_img {
+    display: block;
+    width: 58px;
+    height: 58px;
+    background-image: url(../img/mamon-logo.svg);
+    margin-right: 25px;
+}
+.logo_text {
+    font-size: 24px;
+    color:#202020;
+}
+.title-main {
+    font-size: 55px;
+    color: #202020;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    margin-bottom: 0.4em;
+    padding-left: 15px;
+}
+.text-main {
+    font-size: 32px;
+    line-height: 1.6;
+    max-width: 746px;
+    color: #4F4F4F; 
+    padding-left: 15px;
+}
+.btn {
+    padding-left: 15px;
+}
+.button {
+    background-color: #5528FF;
+    border-radius: 10px;
+    padding: 16px 58px;
+    color: white;
+    border: none;
+    font-size: 24px;
+    margin-top: 36px;
+    margin-bottom: 75px;
+}
+.page {
+    padding-top: 81px;
+    padding-bottom: 34px;
+    position: relative;
+}
+.page-top {
+    border-top: 1px solid #C2C2C2;
+}
+.page h2 {
+    position: absolute;
+    top: -24px;
+    left: 110px;
+    font-size: 14px;
+    font-weight: 300;
+    background-color: white;
+    padding: 5px 60px 5px 15px;
+    color: #C2C2C2;
+}
+.services {
+    padding-top: 17px;
+    padding-bottom: 9px;
+    display: grid;
+    grid-template: 50% 50% / 56.5% 50%;
+}
+.services-item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 49px;
+}
+.services-img {
+    flex-basis: 134px; 
+    text-align: center;
+    padding-right: 18px;
+    margin-top: 2px;
+}
+.services-text {
+    flex-basis: calc(100% - 134px);
+    max-width: 310px;
+    margin-top: -16px;
+}
+.services h3 {
+    font-size: 28px;
+    font-weight: 400;
+}
+.services p {
+    font-size: 14px;
+    color: #B2B2B2;
+    line-height: 1.5528;
+    margin-top: -11px;
+    margin-bottom: 18px;
+}
+.clients {
+    margin-top: -28px;
+    margin-left: 6px;
+    margin-bottom: 69px;
+    display: grid;
+    grid-template: 75px 122px 75px / repeat(4, 25%);
+    justify-items: center;
+    align-items: center;
+}
+.team {
+    display: grid;
+    margin-top: 20px;
+    margin-left: 8px;
+    margin-bottom: 100px;
+    grid-column-gap: 20px;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    grid-row-gap: 50px;
+    justify-items: start;
+}
+.team-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.team-item img {
+    margin-right: 40px;
+}
+.team-item>div {
+    flex-basis: calc(100%-120px);
+}
+.team-item>div>h3 {
+    font-size: 28px;
+    margin-bottom: -5px;
+}
+.footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #F7F7F7;
+}
+.social {
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+}
+.social>li {
+    margin-left: 15px;
+}
+.social>li>a {
+    text-decoration: none;
+    color: #B2B2B2;
+    font-size: 24px;
+}
+.box-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
