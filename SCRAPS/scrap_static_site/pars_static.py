@@ -1,45 +1,47 @@
+# Устанавливаем необходимые библиотеки
 import random
-
 import requests
 from bs4 import BeautifulSoup
 import json
 import csv
-
-# url = 'https://health-diet.ru/table_calorie/?utm_source=leftMenu&utm_medium=table_calorie'
-
+# добавляем ссылку основной страницы сайта
+url = 'https://health-diet.ru/table_calorie/?utm_source=leftMenu&utm_medium=table_calorie'
+# Добавляем параметры браузера для запросов
 headers = {
     "accept": "*/*",
-    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+    "user-agent": ""
 }
-# req = requests.get(url, headers=headers)
-# src = req.text
-# print(src)
+# Заходим на сайт и копируем код страницы
+req = requests.get(url, headers=headers)
+src = req.text
+#print(src)
 
-# with open("index.html", "w") as file:
-#    file.write(src)
+with open("index.html", "w") as file:
+   file.write(src)
 
 # Открываем html и записываем все необходимые ссылки со значениями в json
-# with open("index.html") as file:
-#    src = file.read()
+with open("index.html") as file:
+   src = file.read()
 
-# soup = BeautifulSoup(src, "lxml")
-# all_prod_hrefs = soup.find_all(class_='mzr-tc-group-item-href')
+soup = BeautifulSoup(src, "lxml")
+all_prod_hrefs = soup.find_all(class_='mzr-tc-group-item-href')
 
-# all_cetegor_dict = {}
-# for item in all_prod_hrefs:
-# item_text = item.text
-# item_href = 'https://health-diet.ru' + item.get('href')
-# print(f"{item_text}-{item_href}")
+all_cetegor_dict = {}
+for item in all_prod_hrefs:
+item_text = item.text
+item_href = 'https://health-diet.ru' + item.get('href')
+#print(f"{item_text}-{item_href}")
 
-# all_cetegor_dict[item_text] = item_href
-# with open('ll_cetegor_dict.json', 'w') as file:
-# json.dump(all_cetegor_dict, file, indent=4, ensure_ascii=False)
+all_cetegor_dict[item_text] = item_href
+with open('ll_cetegor_dict.json', 'w') as file:
+json.dump(all_cetegor_dict, file, indent=4, ensure_ascii=False)
 
 
 with open("ll_cetegor_dict.json") as file:
     all_categpries = json.load(file)
 
 # print(all_categpries)
+# Собираем данные с каждой страницы и записываем в таблицы
 iteration_count = int(len(all_categpries)) - 1
 count = 0
 for category_name, category_href in all_categpries.items():
