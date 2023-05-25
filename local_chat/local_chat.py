@@ -67,3 +67,28 @@ def send_message():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)  # конфигурируем параметры запуска приложения
+#как запустить на сервере
+# ssh-keygen -t rsa  создаем ssh ключ
+
+
+# ssh -i <path_to_ssh_key> root@<ip_addr> заходим на сервер
+
+# adduser <username> создаем пользователя
+
+# usermod -aG sudo <username> наделяем пользователя правами администратора
+
+# su <username> сменить текущего пользователя
+
+# scp -r <path_from> user@<ip_addr>:<path_to> копируем на сервер -r рекурсивно
+
+# sudo apt-get update обновляем систему
+
+# sudo apt install python3-pip устанавливаем python + pip
+
+# sudo apt install screen утилита для запуска процессов в фоновом режиме
+
+# screen -d -m python3 main.py запускаем скрипт в фоновом режиме
+
+# screen -ls  выдает список всех процессов
+
+# screen -x -s <process_id> 
