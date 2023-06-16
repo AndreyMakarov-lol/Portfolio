@@ -1,20 +1,32 @@
 # Импортируем необходимые библиотеки
-from aiogram import Bot, Dispatcher, executor, types
+from aiogram import Bot, Dispatcher, executor, types, filters
 import os
 
 # Инициализируем бота, используем токен из виртуального окружения
 bot = Bot(token=os.environ["TOKEN"])
 dp = Dispatcher(bot)
 
+# Создаем Inline Keyboar (кнопки отображаются в самом диалоге)
+inline_buttons = types.InlineKeyboardMarkup()
+
+b1=types.InlineKeyboardButton(text='one', callback_data='send_one')  # атрибут callback_data='send' обратная связь при нажатии кнопки
+b2=types.InlineKeyboardButton(text='two', callback_data='send_two')
+b3=types.InlineKeyboardButton(text='no', callback_data='break')
+
+# Добавляем кнопки к клавиатуре
+inline_buttons.add(b1, b2)
+# последнюю кнопку добавляем отдельной строкой
+inline_buttons.row(b3)
+
 # создаем клавиатуру
-kb = types.ReplyKeyboardMarkup(resize_keyboard=True) # клавиатура не самоудаляющаяся с кнопками автоматически подгоняемыми под размер текста
+kb = types.ReplyKeyboardMarkup(resize_keyboard=True)  # клавиатура не самоудаляющаяся с кнопками автоматически подгоняемыми под размер текста
 
 # Создаём кнопки
-b1 = types.KeyboardButton(text='start1')
-b2 = types.KeyboardButton(text='start2')
-b3 = types.KeyboardButton(text='start3')
+buttonslist = [types.KeyboardButton(text="mem"),
+types.KeyboardButton(text='Send phone number', request_contact=True), # При нажатии кнопки пользователю предлагается отправить боту свой контакт
+types.KeyboardButton(text='start3')]
 # Добавляем кнопки к клавиатуре
-kb.add(b1, b2, b3)
+kb.add(*buttonslist)
 
 
 @dp.message_handler(commands=['start'])
@@ -47,7 +59,7 @@ async def audio_handler(message: types.Message):
 
 
 # Обработка текстового сообщения без определённых параметров
-@dp.message_handler()
+# @dp.message_handler()
 async def echo(message: types.Message):
     # Из API вытаскиваем id и username пользователя
     user_id = message.from_user.id
@@ -56,6 +68,35 @@ async def echo(message: types.Message):
     # Одна из вариации отправки сообщения пользователю
     await bot.send_message(chat_id=message.from_user.id, text="Hello")
 
+
+# Реакци на нажате кнопки через фильтр отправляемого сообщения при нажатии этой кнопки
+@dp.message_handler(filters.Text(contains="mem"))
+async def cmd_handler(message: types.Message):
+    # Ответ на нажатие кнопки
+    await message.answer("Hi, it is butttom mem", reply_markup=inline_buttons)
+
+
+# Обработка отправленного пользователем контакта
+@dp.message_handler(content_types=types.ContentType.CONTACT)
+async def audio_handler(message: types.Message):
+    await message.answer('Number save', reply_markup=types.ReplyKeyboardRemove()) # """Конструкция reply_markup=types.ReplyKeyboardRemove()
+                                                                                # скрывает ранее вызванную клавиатуру после отправки боту контакта"""
+# Обработка обратной связи при нажатии кнопки InlineKeyboar
+@dp.callback_query_handler(filters.Text(contains="send_one"))
+async def some_callback_handler(callback_query: types.CallbackQuery):
+    await callback_query.message.answer('lovi')
+    # Обратная связь телеграмму о том, что кнопка отработала
+    await callback_query.answer()
+
+# Обработка обратной связи при нажатии кнопки InlineKeyboar
+@dp.callback_query_handler(filters.Text(contains="send_two"))
+async def some_callback_handler(callback_query: types.CallbackQuery):
+    media = types.MediaGroup()
+    media.attach_photo(photo=types.InputFile('img/1.jpg'), caption='pervoe')
+    media.attach_photo(photo='https://docs.aiogram.dev/en/latest/_static/logo.png', caption='vtoroe')
+    await callback_query.message.answer_media_group(media=media)
+    # Обратная связь телеграмму о том, что кнопка отработала
+    await callback_query.answer()
 
 if __name__ == '__main__':
     # Запускаем нашего бота
