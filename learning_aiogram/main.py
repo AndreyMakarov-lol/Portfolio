@@ -88,13 +88,21 @@ async def some_callback_handler(callback_query: types.CallbackQuery):
     # Обратная связь телеграмму о том, что кнопка отработала
     await callback_query.answer()
 
-# Обработка обратной связи при нажатии кнопки InlineKeyboar
+# Обработка обратной связи при нажатии кнопки InlineKeyboar кнопки "send_two"
 @dp.callback_query_handler(filters.Text(contains="send_two"))
 async def some_callback_handler(callback_query: types.CallbackQuery):
+    # Создаем медиа объект
     media = types.MediaGroup()
+    # Добавляем к медиа группе 2 изображение(первое из католога, второе из интеренета)
     media.attach_photo(photo=types.InputFile('img/1.jpg'), caption='pervoe')
     media.attach_photo(photo='https://docs.aiogram.dev/en/latest/_static/logo.png', caption='vtoroe')
+    #  Отправляем в ответ на нажатие кнопки медиа группу
     await callback_query.message.answer_media_group(media=media)
+    # Реализуем другой метод отравки медиа файлов
+    listphoto = [types.InputMediaPhoto(types.InputFile('img/2.png'), caption="esco"),
+                types.InputMediaPhoto(types.InputFile('img/1.jpg'), caption="esco"),
+                types.InputMediaPhoto('https://docs.aiogram.dev/en/latest/_static/logo.png')]
+    await callback_query.message.answer_media_group(listphoto)
     # Обратная связь телеграмму о том, что кнопка отработала
     await callback_query.answer()
 
