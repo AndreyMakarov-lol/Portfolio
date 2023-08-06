@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мой блог</title>
+</head>
+<body>
+    <h1>Это мой Блог</h1>
+    <h2>Вот записи этого блога:</h2>
+    {% for post in post_list %}
+        <h3> {{ post.title }} </h3>
+       <p> {{ post.description }}</p>
+        {{ post.author }}
+        {{ post.date }}
+        <button>ЖОПА</button>
+    {% endfor %}
+
+</body>
+</html>
