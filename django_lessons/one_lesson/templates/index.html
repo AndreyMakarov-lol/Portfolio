@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <body>
- <h1>Zalupa!</h1>
+    <h2>Тестовый народ</h2>
+    {% for i in data %}
+    <h3>Сотрудник № {{forloop.counter}}: {{i.name}} {{i.second_name}}</h3>
+    С зарплатой
+    {% if i.salary > 50000}
+    <b style= "color:green">{{i.salary}}</b>
+    {%else%}
+    <b style= "color:red">{{i.salary}}</b>
+    {%endif%}
+
+    <br>
+    {%endfor%}
 </body>
 </html>
